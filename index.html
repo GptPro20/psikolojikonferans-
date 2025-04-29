@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oturum 1 - QR Kod</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+    img {
+      margin-top: 20px;
+      width: 300px;
+      height: 300px;
+    }
+    h1 {
+      color: #333;
+    }
+    .logo {
+      width: 120px;
+    }
+  </style>
+  <script>
+    function refreshQRCode() {
+      const qr = document.getElementById("qr");
+      qr.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(window.location.origin + "/form1.html")}&t=${Date.now()}`;
+    }
+    setInterval(refreshQRCode, 30000);
+    window.onload = refreshQRCode;
+  </script>
+</head>
+<body>
+  <img src="logo.png" alt="Logo" class="logo">
+  <h1>Oturum 1 Katılım Formu</h1>
+  <p>QR kod her 30 saniyede yenilenir.</p>
+  <img id="qr" src="" alt="QR Kod">
+</body>
+</html>
