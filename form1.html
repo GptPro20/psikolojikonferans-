@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katılım Formu - Oturum 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      background-color: #f9f9f9;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Oturum 1 Katılım Formu</h2>
+  <form id="form">
+    <input type="text" name="ad" placeholder="Ad" required>
+    <input type="text" name="soyad" placeholder="Soyad" required>
+    <input type="email" name="eposta" placeholder="E-posta" required>
+    <button type="submit">Gönder</button>
+  </form>
+  <p id="msg"></p>
+  <script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const existing = JSON.parse(localStorage.getItem("oturum1") || "[]");
+      if (existing.find(i => i.eposta === data.eposta)) {
+        document.getElementById("msg").textContent = "Bu oturumda zaten kayıt yapılmış.";
+        return;
+      }
+      existing.push(data);
+      localStorage.setItem("oturum1", JSON.stringify(existing));
+      form.reset();
+      document.getElementById("msg").textContent = "Kayıt başarılı!";
+    });
+  </script>
+</body>
+</html>
