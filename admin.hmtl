@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    input, select { padding: 10px; margin-bottom: 10px; width: 100%; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+  </style>
+</head>
+<body>
+  <h2>Admin Panel</h2>
+  <input type="password" id="sifre" placeholder="Şifre girin">
+  <button onclick="giris()">Giriş</button>
+  <div id="panel" style="display:none;">
+    <select id="oturum">
+      <option value="oturum1">Oturum 1</option>
+    </select>
+    <button onclick="verileriGoster()">Verileri Göster</button>
+    <table id="tablo"><thead><tr><th>Ad</th><th>Soyad</th><th>E-posta</th></tr></thead><tbody></tbody></table>
+  </div>
+  <script>
+    function giris() {
+      const sifre = document.getElementById("sifre").value;
+      if (sifre === "psikoloji2024") {
+        document.getElementById("panel").style.display = "block";
+      } else {
+        alert("Hatalı şifre");
+      }
+    }
+    function verileriGoster() {
+      const oturum = document.getElementById("oturum").value;
+      const data = JSON.parse(localStorage.getItem(oturum) || "[]");
+      const tbody = document.querySelector("#tablo tbody");
+      tbody.innerHTML = "";
+      data.forEach(({ad, soyad, eposta}) => {
+        tbody.innerHTML += `<tr><td>${ad}</td><td>${soyad}</td><td>${eposta}</td></tr>`;
+      });
+    }
+  </script>
+</body>
+</html>
